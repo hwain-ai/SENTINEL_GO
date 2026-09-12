@@ -1,0 +1,419 @@
+{
+  "contractVersion": "sentinel-evidence-v1",
+  "cleanupLeaseKeyHex": "202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
+  "projectStateFileHex": "7b22636c65616e75704c656173654b6579223a22494345694979516c4a69636f4b536f724c4330754c7a41784d6a4d304e5459334f446b364f7a7739506a38222c2266696e6765727072696e74486d61634b6579223a2241414543417751464267634943516f4c4441304f4478415245684d554652595847426b6147787764486838222c226b657945706f6368223a312c2270726f6a6563744964656e746966696572223a2241414543417751464267634943516f4c4441304f4477222c22736368656d6156657273696f6e223a2273656e74696e656c2d70726f6a6563742d73746174652d7631222c22737461746556657273696f6e223a2273746174652d7631227d0a",
+  "eventOrderingCases": [
+    {
+      "id": "public-fingerprint-byte-order",
+      "inputFingerprints": [
+        "hmac-sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "hmac-sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "expected": [
+        {
+          "eventId": "00000000000000000000000000000001",
+          "filename": "00000000000000000000000000000001.json",
+          "fingerprint": "hmac-sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "eventId": "00000000000000000000000000000002",
+          "filename": "00000000000000000000000000000002.json",
+          "fingerprint": "hmac-sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "eventId": "00000000000000000000000000000003",
+          "filename": "00000000000000000000000000000003.json",
+          "fingerprint": "hmac-sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      ]
+    }
+  ],
+  "eventOrderingInvalidCases": [
+    {
+      "id": "duplicate-public-fingerprint",
+      "inputFingerprints": [
+        "hmac-sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "hmac-sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "error": "findingFingerprintDuplicate"
+    },
+    {
+      "id": "raw-unkeyed-fingerprint",
+      "inputFingerprints": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "error": "findingFingerprintInvalid"
+    }
+  ],
+  "validCases": [
+    {
+      "id": "strict-check-passed",
+      "body": {
+        "schemaVersion": "sentinel-evidence-v1",
+        "specVersion": "1.0.0",
+        "fingerprintVersion": "sentinel-fingerprint-v1",
+        "correlationId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "language": "python",
+        "mode": "strict",
+        "certification": true,
+        "observationSource": "fresh",
+        "sourceRunId": null,
+        "keyEpoch": 1,
+        "projectStateHmac": "441395de4352207dc696516a31efa8fb34fc5d4df9a9005537342cda21e84354",
+        "startedSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "diagnosticCodes": [],
+        "runId": "11111111-1111-4111-8111-111111111111",
+        "command": "check",
+        "commitSequence": "1",
+        "startedAtUtc": "2026-09-03T12:00:00Z",
+        "completedAtUtc": "2026-09-03T12:00:01.1Z",
+        "committedAtUtc": "2026-09-03T12:00:01.2Z",
+        "terminalStatus": "passed",
+        "exitCode": 0,
+        "components": {
+          "crap": {
+            "callableCount": 1,
+            "maxNumerator": "8",
+            "maxDenominator": "1",
+            "pass": true,
+            "unknownCount": 0
+          },
+          "mutation": {
+            "inScope": 1,
+            "killed": 1,
+            "survived": 0,
+            "uncovered": 0,
+            "timedOut": 0,
+            "compileError": 0,
+            "runtimeError": 0,
+            "pending": 0,
+            "ignored": 0,
+            "toolError": 0,
+            "unauthorizedExclusion": 0,
+            "pass": true
+          }
+        },
+        "eventCount": 1,
+        "events": [
+          {
+            "filename": "00000000000000000000000000000001.json",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "bodySha256": "7a784069c2ca3036f4c7d6214d5fba466f9d9f8b848033f471bdccb181419faa",
+      "derivedKeyHex": "01512b3cea0b056409fbbd4f8ddb0e398393f0fb8304c794f8a80a2b2bc832c6",
+      "expectedHmac": "4542679c4ce361bd22a29d30a2f4bfd6149a8e2cbd6ef15984cfa1ff697cae32",
+      "fileSha256": "ab218bbdf80c72b02f93e432a938191612869681803a519f24379ba3b092df6a"
+    },
+    {
+      "id": "strict-mutation-quality-failed",
+      "body": {
+        "schemaVersion": "sentinel-evidence-v1",
+        "specVersion": "1.0.0",
+        "fingerprintVersion": "sentinel-fingerprint-v1",
+        "correlationId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "language": "python",
+        "mode": "strict",
+        "certification": false,
+        "observationSource": "fresh",
+        "sourceRunId": null,
+        "keyEpoch": 1,
+        "projectStateHmac": "441395de4352207dc696516a31efa8fb34fc5d4df9a9005537342cda21e84354",
+        "startedSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "diagnosticCodes": [
+          "survivedMutant"
+        ],
+        "runId": "22222222-2222-4222-8222-222222222222",
+        "command": "mutation",
+        "commitSequence": "2",
+        "startedAtUtc": "2026-09-03T13:00:00Z",
+        "completedAtUtc": "2026-09-03T13:00:01Z",
+        "committedAtUtc": "2026-09-03T13:00:02Z",
+        "terminalStatus": "qualityFailed",
+        "exitCode": 2,
+        "components": {
+          "mutation": {
+            "inScope": 1,
+            "killed": 0,
+            "survived": 1,
+            "uncovered": 0,
+            "timedOut": 0,
+            "compileError": 0,
+            "runtimeError": 0,
+            "pending": 0,
+            "ignored": 0,
+            "toolError": 0,
+            "unauthorizedExclusion": 0,
+            "pass": false
+          }
+        },
+        "eventCount": 1,
+        "events": [
+          {
+            "filename": "00000000000000000000000000000001.json",
+            "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        ]
+      },
+      "bodySha256": "5d1c590e3808d29cb8b76bf6634c7f4527068f9f1cb9ae456b6775e6db9a39f7",
+      "derivedKeyHex": "01512b3cea0b056409fbbd4f8ddb0e398393f0fb8304c794f8a80a2b2bc832c6",
+      "expectedHmac": "7bef1a9e19193ef226bb17fe1845903a6c1ab8a08fbcc15f83756c345055d525",
+      "fileSha256": "8e27028edf6247a9117eaf07ddcd1ef5235509fb4ddaa351be0efe63defae6c1"
+    },
+    {
+      "id": "local-cache-crap-passed-not-certified",
+      "body": {
+        "schemaVersion": "sentinel-evidence-v1",
+        "specVersion": "1.0.0",
+        "fingerprintVersion": "sentinel-fingerprint-v1",
+        "correlationId": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "language": "python",
+        "mode": "local",
+        "certification": false,
+        "observationSource": "cache",
+        "sourceRunId": "11111111-1111-4111-8111-111111111111",
+        "keyEpoch": 1,
+        "projectStateHmac": "441395de4352207dc696516a31efa8fb34fc5d4df9a9005537342cda21e84354",
+        "startedSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "diagnosticCodes": [],
+        "runId": "33333333-3333-4333-8333-333333333333",
+        "command": "crap",
+        "commitSequence": "3",
+        "startedAtUtc": "2026-09-03T14:00:00Z",
+        "completedAtUtc": "2026-09-03T14:00:01Z",
+        "committedAtUtc": "2026-09-03T14:00:02Z",
+        "terminalStatus": "passed",
+        "exitCode": 0,
+        "components": {
+          "crap": {
+            "callableCount": 1,
+            "maxNumerator": "8",
+            "maxDenominator": "1",
+            "pass": true,
+            "unknownCount": 0
+          }
+        },
+        "eventCount": 0,
+        "events": []
+      },
+      "bodySha256": "2894f8c7915ce5f1f312654d21980ee0801fa743787a45fd299cfaabb86d3375",
+      "derivedKeyHex": "01512b3cea0b056409fbbd4f8ddb0e398393f0fb8304c794f8a80a2b2bc832c6",
+      "expectedHmac": "0c99cd8067d78b957f51b7a9bd338f3d5a95356bd0b984851bc4be17b053c676",
+      "fileSha256": "017c622e0c0bd0aba97fa3c1ba6dea3ff00f2a8a66c1b02825939259011e2660"
+    }
+  ],
+  "semanticInvalidCases": [
+    {
+      "id": "wrong-schema-version",
+      "baseCase": "strict-check-passed",
+      "field": "schemaVersion",
+      "value": "evidence-v1",
+      "error": "evidenceSchemaVersionInvalid"
+    },
+    {
+      "id": "zero-commit-sequence",
+      "baseCase": "strict-check-passed",
+      "field": "commitSequence",
+      "value": "0",
+      "error": "commitSequenceInvalid"
+    },
+    {
+      "id": "completion-before-start",
+      "baseCase": "strict-check-passed",
+      "field": "completedAtUtc",
+      "value": "2026-09-03T11:59:59Z",
+      "error": "evidenceTimeOrderInvalid"
+    },
+    {
+      "id": "status-exit-mismatch",
+      "baseCase": "strict-check-passed",
+      "field": "exitCode",
+      "value": 2,
+      "error": "terminalStatusExitCodeMismatch"
+    },
+    {
+      "id": "strict-pass-not-certified",
+      "baseCase": "strict-check-passed",
+      "field": "certification",
+      "value": false,
+      "error": "certificationInvalid"
+    },
+    {
+      "id": "cache-without-source-run",
+      "baseCase": "strict-check-passed",
+      "field": "observationSource",
+      "value": "cache",
+      "error": "sourceRunIdInvalid"
+    },
+    {
+      "id": "wrong-key-epoch",
+      "baseCase": "strict-check-passed",
+      "field": "keyEpoch",
+      "value": 2,
+      "error": "keyEpochInvalid"
+    },
+    {
+      "id": "wrong-project-binding",
+      "baseCase": "strict-check-passed",
+      "field": "projectStateHmac",
+      "value": "0000000000000000000000000000000000000000000000000000000000000000",
+      "error": "projectStateBindingInvalid"
+    },
+    {
+      "id": "unsorted-diagnostics",
+      "baseCase": "strict-mutation-quality-failed",
+      "field": "diagnosticCodes",
+      "value": [
+        "zCode",
+        "aCode"
+      ],
+      "error": "diagnosticCodesInvalid"
+    },
+    {
+      "id": "command-component-mismatch",
+      "baseCase": "strict-check-passed",
+      "field": "command",
+      "value": "mutation",
+      "error": "evidenceComponentsInvalid"
+    },
+    {
+      "id": "empty-callable-inventory-cannot-pass",
+      "baseCase": "strict-check-passed",
+      "field": "components.crap",
+      "value": {
+        "callableCount": 0,
+        "maxNumerator": "0",
+        "maxDenominator": "1",
+        "pass": true,
+        "unknownCount": 0
+      },
+      "error": "crapComponentSemanticsInvalid"
+    },
+    {
+      "id": "mutation-state-sum-mismatch",
+      "baseCase": "strict-mutation-quality-failed",
+      "field": "components.mutation",
+      "value": {
+        "inScope": 2,
+        "killed": 0,
+        "survived": 1,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0,
+        "unauthorizedExclusion": 0,
+        "pass": false
+      },
+      "error": "mutationComponentInvalid"
+    },
+    {
+      "id": "quality-failed-with-passing-components",
+      "baseCase": "strict-check-passed",
+      "field": "terminalStatus",
+      "value": "qualityFailed",
+      "error": "terminalStatusExitCodeMismatch"
+    },
+    {
+      "id": "fresh-with-source-run",
+      "baseCase": "strict-check-passed",
+      "field": "sourceRunId",
+      "value": "22222222-2222-4222-8222-222222222222",
+      "error": "sourceRunIdInvalid"
+    },
+    {
+      "id": "noncanonical-utc-fraction",
+      "baseCase": "strict-check-passed",
+      "field": "completedAtUtc",
+      "value": "2026-09-03T12:00:01.100Z",
+      "error": "utcTimestampInvalid"
+    },
+    {
+      "id": "go-32-hex-run-id",
+      "baseCase": "strict-check-passed",
+      "field": "runId",
+      "value": "11111111111111111111111111111111",
+      "error": "runIdInvalid"
+    }
+  ],
+  "wireInvalidCases": [
+    {
+      "id": "hmac-tamper",
+      "baseCase": "strict-check-passed",
+      "transform": "hmac-tamper",
+      "error": "evidenceHmacMismatch"
+    },
+    {
+      "id": "uppercase-hmac",
+      "baseCase": "strict-check-passed",
+      "transform": "uppercase-hmac",
+      "error": "evidenceHmacInvalid"
+    },
+    {
+      "id": "clojure-hmac-field-alias",
+      "baseCase": "strict-check-passed",
+      "transform": "rename-hmac",
+      "error": "evidenceFieldsInvalid"
+    },
+    {
+      "id": "noncanonical-whitespace",
+      "baseCase": "strict-check-passed",
+      "transform": "whitespace",
+      "error": "canonicalJsonMismatch"
+    },
+    {
+      "id": "missing-final-lf",
+      "baseCase": "strict-check-passed",
+      "transform": "missing-lf",
+      "error": "canonicalJsonMismatch"
+    },
+    {
+      "id": "python-nested-run-sequence",
+      "document": {
+        "schemaVersion": "sentinel-evidence-v1",
+        "run": {
+          "runId": "11111111-1111-4111-8111-111111111111",
+          "sequence": 1
+        },
+        "fingerprintEpoch": 1,
+        "findings": [],
+        "hmacSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "projectStateHmac": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "crap": {
+          "maxNumerator": "8",
+          "maxDenominator": "1",
+          "pass": true,
+          "unknownCount": 0
+        }
+      },
+      "error": "evidenceFieldsInvalid"
+    },
+    {
+      "id": "go-legacy-envelope",
+      "document": {
+        "command": "check",
+        "commitSequence": "1",
+        "committedAtUtc": "2026-09-03T12:00:01.2Z",
+        "eventCount": 0,
+        "events": [],
+        "fingerprintEpoch": 1,
+        "hmacSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "projectStateHmac": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "runId": "11111111111111111111111111111111",
+        "schemaVersion": "evidence-v1",
+        "startedSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "terminalStatus": "passed"
+      },
+      "error": "evidenceFieldsInvalid"
+    },
+    {
+      "id": "duplicate-schema-key",
+      "rawHex": "7b22736368656d6156657273696f6e223a2273656e74696e656c2d65766964656e63652d7631222c22736368656d6156657273696f6e223a2273656e74696e656c2d65766964656e63652d7631227d0a",
+      "error": "jsonDuplicateKey"
+    }
+  ]
+}

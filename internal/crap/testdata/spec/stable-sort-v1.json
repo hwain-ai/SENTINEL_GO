@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "sentinel-crap-row-order-v1",
+  "cases": [
+    {
+      "id": "unknown-before-known-and-exact-risk-descending",
+      "rows": [
+        {
+          "moduleRelativePath": "src/low.py",
+          "sourceStartByte": 2,
+          "callableId": "low",
+          "numerator": "1",
+          "denominator": "3"
+        },
+        {
+          "moduleRelativePath": "src/near-high.py",
+          "sourceStartByte": 5,
+          "callableId": "near-high",
+          "numerator": "1000000000000001",
+          "denominator": "3000000000000000"
+        },
+        {
+          "moduleRelativePath": "src/한글.py",
+          "sourceStartByte": 7,
+          "callableId": "unknown-korean",
+          "unknownReason": "coverageFileMissing"
+        },
+        {
+          "moduleRelativePath": "src/high.py",
+          "sourceStartByte": 1,
+          "callableId": "high",
+          "numerator": "9",
+          "denominator": "1"
+        },
+        {
+          "moduleRelativePath": "src/𐀀.py",
+          "sourceStartByte": 3,
+          "callableId": "unknown-astral",
+          "unknownReason": "coverageUnitsMissing"
+        }
+      ],
+      "expectedCallableIds": [
+        "unknown-korean",
+        "unknown-astral",
+        "high",
+        "near-high",
+        "low"
+      ]
+    },
+    {
+      "id": "source-byte-and-callable-id-tie-breakers",
+      "rows": [
+        {
+          "moduleRelativePath": "src/same.py",
+          "sourceStartByte": 2,
+          "callableId": "a-higher-offset",
+          "numerator": "2",
+          "denominator": "1"
+        },
+        {
+          "moduleRelativePath": "src/same.py",
+          "sourceStartByte": 1,
+          "callableId": "z-lower-offset",
+          "numerator": "2",
+          "denominator": "1"
+        },
+        {
+          "moduleRelativePath": "src/same.py",
+          "sourceStartByte": 1,
+          "callableId": "b-lower-offset",
+          "numerator": "2",
+          "denominator": "1"
+        }
+      ],
+      "expectedCallableIds": [
+        "b-lower-offset",
+        "z-lower-offset",
+        "a-higher-offset"
+      ]
+    },
+    {
+      "id": "utf8-byte-order-differs-from-utf16-code-unit-order",
+      "rows": [
+        {
+          "moduleRelativePath": "src/𐀀.py",
+          "sourceStartByte": 1,
+          "callableId": "astral",
+          "numerator": "2",
+          "denominator": "1"
+        },
+        {
+          "moduleRelativePath": "src/.py",
+          "sourceStartByte": 1,
+          "callableId": "bmp-private-use",
+          "numerator": "2",
+          "denominator": "1"
+        }
+      ],
+      "expectedCallableIds": [
+        "bmp-private-use",
+        "astral"
+      ]
+    },
+    {
+      "id": "maximum-json-safe-source-byte",
+      "rows": [
+        {
+          "moduleRelativePath": "src/max.py",
+          "sourceStartByte": 9007199254740991,
+          "callableId": "maximum",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        {
+          "moduleRelativePath": "src/max.py",
+          "sourceStartByte": 9007199254740990,
+          "callableId": "before-maximum",
+          "numerator": "1",
+          "denominator": "1"
+        }
+      ],
+      "expectedCallableIds": [
+        "before-maximum",
+        "maximum"
+      ]
+    }
+  ],
+  "invalidCases": [
+    {
+      "id": "duplicate-final-identity",
+      "rows": [
+        {
+          "moduleRelativePath": "src/same.py",
+          "sourceStartByte": 1,
+          "callableId": "same",
+          "numerator": "2",
+          "denominator": "1"
+        },
+        {
+          "moduleRelativePath": "src/same.py",
+          "sourceStartByte": 1,
+          "callableId": "same",
+          "numerator": "2",
+          "denominator": "1"
+        }
+      ],
+      "expectedError": "identityAmbiguous"
+    },
+    {
+      "id": "source-start-two-to-the-53",
+      "rows": [
+        {
+          "moduleRelativePath": "src/a.py",
+          "sourceStartByte": 9007199254740992,
+          "callableId": "a",
+          "numerator": "1",
+          "denominator": "1"
+        }
+      ],
+      "expectedError": "sourceStartByteInvalid"
+    },
+    {
+      "id": "source-start-two-to-the-53-plus-one",
+      "rows": [
+        {
+          "moduleRelativePath": "src/a.py",
+          "sourceStartByte": 9007199254740993,
+          "callableId": "a",
+          "numerator": "1",
+          "denominator": "1"
+        }
+      ],
+      "expectedError": "sourceStartByteInvalid"
+    }
+  ]
+}

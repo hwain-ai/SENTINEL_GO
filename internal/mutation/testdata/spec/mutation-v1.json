@@ -1,0 +1,339 @@
+{
+  "schemaVersion": "sentinel-mutation-gate-v1",
+  "states": [
+    "killed",
+    "survived",
+    "uncovered",
+    "timedOut",
+    "compileError",
+    "runtimeError",
+    "pending",
+    "ignored",
+    "toolError"
+  ],
+  "cases": [
+    {
+      "id": "all-killed",
+      "counts": {
+        "killed": 3,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 3,
+      "unauthorizedExclusion": 0,
+      "expected": {
+        "pass": true,
+        "killRate": {
+          "numerator": "1",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "survived",
+      "counts": {
+        "killed": 1,
+        "survived": 1,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 2,
+      "unauthorizedExclusion": 0,
+      "expected": {
+        "pass": false,
+        "killRate": {
+          "numerator": "1",
+          "denominator": "2"
+        }
+      }
+    },
+    {
+      "id": "zero-mutants",
+      "counts": {
+        "killed": 0,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 0,
+      "unauthorizedExclusion": 0,
+      "expected": {
+        "pass": false,
+        "killRate": null
+      }
+    },
+    {
+      "id": "timeout-only",
+      "counts": {
+        "killed": 0,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 1,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 1,
+      "unauthorizedExclusion": 0,
+      "expected": {
+        "pass": false,
+        "killRate": {
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "ignored-only",
+      "counts": {
+        "killed": 0,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 1,
+        "toolError": 0
+      },
+      "inScope": 1,
+      "unauthorizedExclusion": 0,
+      "expected": {
+        "pass": false,
+        "killRate": {
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "unauthorized-exclusion",
+      "counts": {
+        "killed": 1,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 1,
+      "unauthorizedExclusion": 1,
+      "expected": {
+        "pass": false,
+        "killRate": {
+          "numerator": "1",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "maximum-json-safe-all-killed",
+      "counts": {
+        "killed": 9007199254740991,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 9007199254740991,
+      "unauthorizedExclusion": 0,
+      "expected": {
+        "pass": true,
+        "killRate": {
+          "numerator": "1",
+          "denominator": "1"
+        }
+      }
+    },
+    {
+      "id": "maximum-json-safe-one-survived",
+      "counts": {
+        "killed": 9007199254740990,
+        "survived": 1,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 9007199254740991,
+      "unauthorizedExclusion": 0,
+      "expected": {
+        "pass": false,
+        "killRate": {
+          "numerator": "9007199254740990",
+          "denominator": "9007199254740991"
+        }
+      }
+    }
+  ],
+  "invalidCases": [
+    {
+      "id": "state-sum-mismatch",
+      "counts": {
+        "killed": 1,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 2,
+      "unauthorizedExclusion": 0,
+      "error": "stateCountMismatch"
+    },
+    {
+      "id": "unknown-state",
+      "counts": {
+        "killed": 1,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0,
+        "unknown": 0
+      },
+      "inScope": 1,
+      "unauthorizedExclusion": 0,
+      "error": "unknownMutationState"
+    },
+    {
+      "id": "missing-state",
+      "counts": {
+        "killed": 1,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "toolError": 0
+      },
+      "inScope": 1,
+      "unauthorizedExclusion": 0,
+      "error": "missingMutationState"
+    },
+    {
+      "id": "boolean-count",
+      "counts": {
+        "killed": true,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 1,
+      "unauthorizedExclusion": 0,
+      "error": "mutationCountNotInteger"
+    },
+    {
+      "id": "boolean-in-scope",
+      "counts": {
+        "killed": 0,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": false,
+      "unauthorizedExclusion": 0,
+      "error": "inScopeNotInteger"
+    },
+    {
+      "id": "boolean-unauthorized-exclusion",
+      "counts": {
+        "killed": 1,
+        "survived": 0,
+        "uncovered": 0,
+        "timedOut": 0,
+        "compileError": 0,
+        "runtimeError": 0,
+        "pending": 0,
+        "ignored": 0,
+        "toolError": 0
+      },
+      "inScope": 1,
+      "unauthorizedExclusion": false,
+      "error": "unauthorizedExclusionNotInteger"
+    }
+  ],
+  "rawJsonInvalidCases": [
+    {
+      "id": "json-unsafe-mutation-count",
+      "rawInput": "{\"counts\":{\"killed\":9007199254740992,\"survived\":0,\"uncovered\":0,\"timedOut\":0,\"compileError\":0,\"runtimeError\":0,\"pending\":0,\"ignored\":0,\"toolError\":0},\"inScope\":9007199254740992,\"unauthorizedExclusion\":0}",
+      "jsonError": "jsonIntegerOutOfRange",
+      "semanticError": "mutationCountOutOfRange"
+    },
+    {
+      "id": "json-unsafe-in-scope",
+      "rawInput": "{\"counts\":{\"killed\":0,\"survived\":0,\"uncovered\":0,\"timedOut\":0,\"compileError\":0,\"runtimeError\":0,\"pending\":0,\"ignored\":0,\"toolError\":0},\"inScope\":9007199254740992,\"unauthorizedExclusion\":0}",
+      "jsonError": "jsonIntegerOutOfRange",
+      "semanticError": "inScopeOutOfRange"
+    },
+    {
+      "id": "json-unsafe-unauthorized-exclusion",
+      "rawInput": "{\"counts\":{\"killed\":1,\"survived\":0,\"uncovered\":0,\"timedOut\":0,\"compileError\":0,\"runtimeError\":0,\"pending\":0,\"ignored\":0,\"toolError\":0},\"inScope\":1,\"unauthorizedExclusion\":9007199254740992}",
+      "jsonError": "jsonIntegerOutOfRange",
+      "semanticError": "unauthorizedExclusionOutOfRange"
+    },
+    {
+      "id": "json-unsafe-mutation-count-plus-one",
+      "rawInput": "{\"counts\":{\"killed\":9007199254740993,\"survived\":0,\"uncovered\":0,\"timedOut\":0,\"compileError\":0,\"runtimeError\":0,\"pending\":0,\"ignored\":0,\"toolError\":0},\"inScope\":9007199254740993,\"unauthorizedExclusion\":0}",
+      "jsonError": "jsonIntegerOutOfRange",
+      "semanticError": "mutationCountOutOfRange"
+    },
+    {
+      "id": "json-unsafe-in-scope-plus-one",
+      "rawInput": "{\"counts\":{\"killed\":0,\"survived\":0,\"uncovered\":0,\"timedOut\":0,\"compileError\":0,\"runtimeError\":0,\"pending\":0,\"ignored\":0,\"toolError\":0},\"inScope\":9007199254740993,\"unauthorizedExclusion\":0}",
+      "jsonError": "jsonIntegerOutOfRange",
+      "semanticError": "inScopeOutOfRange"
+    },
+    {
+      "id": "json-unsafe-unauthorized-exclusion-plus-one",
+      "rawInput": "{\"counts\":{\"killed\":1,\"survived\":0,\"uncovered\":0,\"timedOut\":0,\"compileError\":0,\"runtimeError\":0,\"pending\":0,\"ignored\":0,\"toolError\":0},\"inScope\":1,\"unauthorizedExclusion\":9007199254740993}",
+      "jsonError": "jsonIntegerOutOfRange",
+      "semanticError": "unauthorizedExclusionOutOfRange"
+    }
+  ]
+}

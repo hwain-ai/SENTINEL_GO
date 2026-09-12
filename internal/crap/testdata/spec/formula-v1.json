@@ -1,0 +1,209 @@
+{
+  "schemaVersion": "sentinel-crap-formula-v1",
+  "formulaCases": [
+    {
+      "id": "full-coverage",
+      "input": {
+        "cyclomaticComplexity": 4,
+        "coveredUnits": 4,
+        "totalUnits": 4
+      },
+      "expected": {
+        "numerator": "4",
+        "denominator": "1",
+        "decimal": "4",
+        "pass": true
+      }
+    },
+    {
+      "id": "half-coverage",
+      "input": {
+        "cyclomaticComplexity": 2,
+        "coveredUnits": 1,
+        "totalUnits": 2
+      },
+      "expected": {
+        "numerator": "5",
+        "denominator": "2",
+        "decimal": "2.5",
+        "pass": true
+      }
+    },
+    {
+      "id": "zero-coverage",
+      "input": {
+        "cyclomaticComplexity": 3,
+        "coveredUnits": 0,
+        "totalUnits": 7
+      },
+      "expected": {
+        "numerator": "12",
+        "denominator": "1",
+        "decimal": "12",
+        "pass": false
+      }
+    },
+    {
+      "id": "reduced-seventeen-quarters",
+      "input": {
+        "cyclomaticComplexity": 4,
+        "coveredUnits": 3,
+        "totalUnits": 4
+      },
+      "expected": {
+        "numerator": "17",
+        "denominator": "4",
+        "decimal": "4.25",
+        "pass": true
+      }
+    },
+    {
+      "id": "exact-eight-boundary",
+      "input": {
+        "cyclomaticComplexity": 8,
+        "coveredUnits": 1,
+        "totalUnits": 1
+      },
+      "expected": {
+        "numerator": "8",
+        "denominator": "1",
+        "decimal": "8",
+        "pass": true
+      }
+    },
+    {
+      "id": "above-eight-boundary",
+      "input": {
+        "cyclomaticComplexity": 9,
+        "coveredUnits": 1,
+        "totalUnits": 1
+      },
+      "expected": {
+        "numerator": "9",
+        "denominator": "1",
+        "decimal": "9",
+        "pass": false
+      }
+    },
+    {
+      "id": "maximum-json-safe-counts",
+      "input": {
+        "cyclomaticComplexity": 9007199254740991,
+        "coveredUnits": 9007199254740991,
+        "totalUnits": 9007199254740991
+      },
+      "expected": {
+        "numerator": "9007199254740991",
+        "denominator": "1",
+        "decimal": "9007199254740991",
+        "pass": false
+      }
+    }
+  ],
+  "decimalCases": [
+    {
+      "id": "one-third",
+      "numerator": "1",
+      "denominator": "3",
+      "expected": "0.333333333333"
+    },
+    {
+      "id": "half-even-down",
+      "numerator": "246913578025",
+      "denominator": "2000000000000",
+      "expected": "0.123456789012"
+    },
+    {
+      "id": "half-even-up",
+      "numerator": "246913578027",
+      "denominator": "2000000000000",
+      "expected": "0.123456789014"
+    },
+    {
+      "id": "carry-into-integer",
+      "numerator": "1999999999999",
+      "denominator": "2000000000000",
+      "expected": "1"
+    },
+    {
+      "id": "trailing-zero-removal",
+      "numerator": "17",
+      "denominator": "4",
+      "expected": "4.25"
+    }
+  ],
+  "invalidCases": [
+    {
+      "id": "boolean-complexity",
+      "input": {
+        "cyclomaticComplexity": true,
+        "coveredUnits": 1,
+        "totalUnits": 1
+      },
+      "error": "cyclomaticComplexityNotInteger"
+    },
+    {
+      "id": "zero-complexity",
+      "input": {
+        "cyclomaticComplexity": 0,
+        "coveredUnits": 1,
+        "totalUnits": 1
+      },
+      "error": "cyclomaticComplexityOutOfRange"
+    },
+    {
+      "id": "negative-covered-units",
+      "input": {
+        "cyclomaticComplexity": 1,
+        "coveredUnits": -1,
+        "totalUnits": 1
+      },
+      "error": "coveredUnitsOutOfRange"
+    },
+    {
+      "id": "zero-total-units",
+      "input": {
+        "cyclomaticComplexity": 1,
+        "coveredUnits": 0,
+        "totalUnits": 0
+      },
+      "error": "totalUnitsOutOfRange"
+    },
+    {
+      "id": "covered-units-exceed-total",
+      "input": {
+        "cyclomaticComplexity": 1,
+        "coveredUnits": 2,
+        "totalUnits": 1
+      },
+      "error": "coveredUnitsExceedTotalUnits"
+    },
+    {
+      "id": "json-unsafe-complexity",
+      "input": {
+        "cyclomaticComplexity": 9007199254740992,
+        "coveredUnits": 1,
+        "totalUnits": 1
+      },
+      "error": "cyclomaticComplexityOutOfRange"
+    },
+    {
+      "id": "json-unsafe-covered-units",
+      "input": {
+        "cyclomaticComplexity": 1,
+        "coveredUnits": 9007199254740992,
+        "totalUnits": 9007199254740991
+      },
+      "error": "coveredUnitsOutOfRange"
+    },
+    {
+      "id": "json-unsafe-total-units",
+      "input": {
+        "cyclomaticComplexity": 1,
+        "coveredUnits": 0,
+        "totalUnits": 9007199254740992
+      },
+      "error": "totalUnitsOutOfRange"
+    }
+  ]
+}

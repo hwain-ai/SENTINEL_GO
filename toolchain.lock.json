@@ -1,5 +1,16 @@
 {
   "repository": "SENTINEL_GO",
-  "status": "bootstrap-pending",
-  "toolchains": {}
+  "status": "locked",
+  "toolchains": {
+    "go": {
+      "version": "1.27.1",
+      "platform": "linux-amd64",
+      "archiveUrl": "https://go.dev/dl/go1.27.1.linux-amd64.tar.gz",
+      "archiveSize": 70553950,
+      "archiveSha256": "63d339f0da5ab53635a56f2490a7984dfe12dfcff22ad749f63edaf590168445",
+      "binarySha256": "30969f97169d7f43fe6a085873d75613adc21e30818a8c61d95bd27275df4624",
+      "installedTreeAlgorithm": "gnu-tar-v1",
+      "installedTreeSha256": "52dbc6ddf61a5f7019772085d134d610de7f3206ab5d3960d8b9ec63b3aa9564"
+    }
+  }
 }

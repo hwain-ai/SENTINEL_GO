@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "sentinel-go-backend-lock-v1",
+  "backendName": "mutate4go",
+  "sourceCommit": "9016c7adafc1c7e282b5e27768e732e477713af8",
+  "bridgeVersion": "sentinel-mutate4go-bridge/1",
+  "runnerVersion": "sentinel-go-test-runner/1",
+  "upstreamModuleSha256": "8ca52f7a8a2366e32c2b7e17c479747f967d819a10205ab30a96611e5bef2b49",
+  "operatorSourceSha256": "dea39dee74572befe65641ece264a80d952db5fa4944149da893bde5b8da5244",
+  "coverageSourceSha256": "791616262a07bd14147133918832e962adcd2b2bb296615994f0ad2ba6a9c2a8",
+  "reportSchemaVersion": "sentinel-mutate4go-report-v1",
+  "killPolicy": "strict-killed-only-v1"
+}
