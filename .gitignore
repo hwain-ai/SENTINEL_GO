@@ -1,3 +1,4 @@
 .toolchain/
 .sentinel/
 target/
+.claude/
