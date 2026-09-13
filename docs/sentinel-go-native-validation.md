@@ -4,14 +4,14 @@ updated: 2026-09-10
 status: in-progress
 owner: Codex
 related:
-  - https://github.com/hwain-hwang/SENTINEL/blob/main/docs/exec-plans/active/2026-09-sentinel-unified-entry.md
+  - https://github.com/hwain-ai/SENTINEL/blob/main/docs/exec-plans/active/2026-09-sentinel-unified-entry.md
 ---
 
 # Go 독립 설치·실제 프로젝트 검증
 
 Go의 독립 설치·격리 실행 기반을 구현했고 공개 프로젝트의 원래 빌드와 두 도구의 전체 생산 파일 비교 기록을 검토했다. 새 10파일 비교용 설치물에서는 원래 빌드에 이어 격리 시험 10종과 각 시험 뒤 새 실행의 복구도 확인했다. 이어서 설치된 통합 명령에서 같은 공개 프로젝트 복사본의 검사 결과 반환·제한 실행·사용자 취소를 확인했다. 이 검증은 프로젝트의 품질 통과를 뜻하지 않는다. 정식 운영 허용, 다른 언어 검증과 Codex·Claude Code 플러그인 활성화는 아직 미완료다. 단계별 설치물과 검증 범위는 아래에서 구분한다.
 
-이 문서는 [실행 계획의 Task 2c·2d](https://github.com/hwain-hwang/SENTINEL/blob/main/docs/exec-plans/active/2026-09-sentinel-unified-entry.md)에 대한 관측 기록이다. 공개 참조 프로젝트 하나를 회사 프로젝트 전체의 대표로 취급하지 않는다. 모든 실행 결과는 certified=false다.
+이 문서는 [실행 계획의 Task 2c·2d](https://github.com/hwain-ai/SENTINEL/blob/main/docs/exec-plans/active/2026-09-sentinel-unified-entry.md)에 대한 관측 기록이다. 공개 참조 프로젝트 하나를 회사 프로젝트 전체의 대표로 취급하지 않는다. 모든 실행 결과는 certified=false다.
 
 ## 입력과 설치 범위
 
@@ -90,7 +90,7 @@ v5 mutate4go 요약은 killed 13개, survived 5개, uncovered 2개, timedOut 1�
 12. mutate4go adapter·bridge·typed runner의 취소와 회수 경계를 보완했다. 직접 자식의 종료 대기를 마치고 자기 프로세스 그룹에 종료 신호를 보낸 뒤 반환한다. 원래 오류와 작업 복사본 제거 실패가 겹치면 두 분류를 경로 노출 없이 보존한다. 출력 제한 우회와 취소·실패 시 정리도 회귀 시험·독립 검토를 통과했다. 직접 자식이 아닌 모든 후손의 종료 대기까지 수행한다고 주장하지 않는다.
 13. mutate4go에도 선택형 변이 제한을 연결했다. 생략한 기존 호출은 유지하고, 지정하면 각 컴파일과 각 재실행에 독립 적용한다. 원본 대조 테스트와 전체 제한은 유지하며 취소·전체 시간 초과 때는 미완성 결과를 버린다. native 본체 13개와 bridge 쪽 6개 테스트 패키지의 새 전체 실행이 통과했고 독립 검토 잔여 항목은 0개다. 통합 실행기의 mutation·check 내부 연결은 정수 1..600000을 Docker 실행 전에 검증한다. 관련 29개·전체 230개 소스 시험, 재설치 14파일 byte 일치와 설치본 native·comparison 연결 시험 12개를 통과했고 독립 승인됐다. 위 v5 실제 실행은 이 설치본을 사용했다.
 
-입력 검증 수정은 수정 전 6개 실패를 확인한 뒤 관련 8개 테스트가 통과했다. 별도 후속 검토도 실제 SDK·9파일 artifact에서 이전 재현의 거부, 정상 입력의 통과와 FD 누수 0을 확인해 ACCEPT했다. [runtime 검증](https://github.com/hwain-hwang/SENTINEL/blob/main/src/sentinel/go_runtime.py), [입력 조립](https://github.com/hwain-hwang/SENTINEL/blob/main/src/sentinel/go_inputs.py).
+입력 검증 수정은 수정 전 6개 실패를 확인한 뒤 관련 8개 테스트가 통과했다. 별도 후속 검토도 실제 SDK·9파일 artifact에서 이전 재현의 거부, 정상 입력의 통과와 FD 누수 0을 확인해 ACCEPT했다. [runtime 검증](https://github.com/hwain-ai/SENTINEL/blob/main/src/sentinel/go_runtime.py), [입력 조립](https://github.com/hwain-ai/SENTINEL/blob/main/src/sentinel/go_inputs.py).
 
 ## 격리와 검증의 한계
 
